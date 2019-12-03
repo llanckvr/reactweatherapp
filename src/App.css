@@ -52,6 +52,10 @@ h1 {
   font-size: 40px;
 }
 
+.actual-coverage {
+  text-transform: capitalize;
+}
+
 .main-temperature {
   font-size: 75px;
 }

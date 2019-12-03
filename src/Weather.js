@@ -1,24 +1,33 @@
 import React, { Component } from "react";
+import axios from "axios";
 import "./App.css";
 import Loader from "react-loader-spinner";
 import WeatherImage from "./weatherImage";
+import { thisExpression } from "@babel/types";
 
 export default class Weather extends Component {
+  apiKey = "7ef85d788990126f9a396a0335757858";
+  apiRoot = "https://api.openweathermap.org";
   state = { loaded: false };
 
-  componentDidMount() {
+  showResults = response => {
     this.setState({
       loaded: true,
       weather: {
-        city: "Lisbon",
-        temperature: 20,
+        city: response.data.name,
+        temperature: Math.round(response.data.main.temp),
         date: "Monday 22:00",
-        description: "Partially cloudy",
+        description: response.data.weather[0].description,
         precipitation: "0",
-        humidity: "0",
-        wind: "0"
+        humidity: response.data.main.humidity,
+        wind: Math.round(response.data.wind.speed)
       }
     });
+  };
+
+  componentDidMount() {
+    let apiUrl = `${this.apiRoot}/data/2.5/weather?q=${this.props.city}&appid=${this.apiKey}&units=metric`;
+    axios.get(apiUrl).then(this.showResults);
   }
 
   render() {
@@ -67,12 +76,12 @@ export default class Weather extends Component {
               <div className="col-sm">
                 <i className="fas fa-tint actual-humidity"></i>
                 <br />
-                <span> {this.state.weather.humidity} </span>
+                <span> {this.state.weather.humidity}% </span>
               </div>
               <div className="col-sm">
                 <i className="fas fa-wind actual-wind"></i>
                 <br />
-                <span>{this.state.weather.wind}</span>
+                <span>{this.state.weather.wind} Km/h </span>
               </div>
               <div className="col-sm">
                 <i className="fas fa-cloud-showers-heavy actual-precipitation"></i>

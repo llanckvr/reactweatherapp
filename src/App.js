@@ -8,7 +8,7 @@ import WeatherImage from "./weatherImage";
 export default function App() {
   return (
     <div className="App">
-      <Weather />
+      <Weather city="Lisbon" />
     </div>
   );
 }
