@@ -8,6 +8,7 @@ import WeatherImage from "./weatherImage";
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
   const [weather, setWeather] = useState({});
+  const [city, setCity] = useState(props.defaultCity);
 
   function showResults(response) {
     setWeather({
@@ -24,13 +25,17 @@ export default function Weather(props) {
 
   function search() {
     const apiKey = `7ef85d788990126f9a396a0335757858`;
-    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${props.city}&appid=${apiKey}&units=metric`;
+    let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
     axios.get(apiUrl).then(showResults);
   }
 
   function handleSubmit(event) {
     event.preventDefault();
     search();
+  }
+
+  function handleChangeCity(event) {
+    setCity(event.target.value);
   }
 
   if (ready) {
@@ -40,9 +45,10 @@ export default function Weather(props) {
           <form onSubmit={handleSubmit}>
             <i className="fas fa-search "></i>
             <input
-              type="text"
+              type="search"
               placeholder="Search"
               className="location-search"
+              onChange={handleChangeCity}
             />
           </form>
           <br />
@@ -73,19 +79,15 @@ export default function Weather(props) {
 
           <div className="row">
             <div className="col-sm">
-              <i className="fas fa-tint actual-humidity"></i>
+              <small>Humidity</small>
               <br />
               <span> {weather.humidity}% </span>
             </div>
+            <div className="col-sm"></div>
             <div className="col-sm">
-              <i className="fas fa-wind actual-wind"></i>
+              <small>Wind</small>
               <br />
               <span>{weather.wind} Km/h </span>
-            </div>
-            <div className="col-sm">
-              <i className="fas fa-cloud-showers-heavy actual-precipitation"></i>
-              <br />
-              <span> {weather.precipitation} </span>
             </div>
           </div>
         </div>
@@ -103,16 +105,19 @@ export default function Weather(props) {
             <p>By Laure-Anne Lanckvrind</p>
           </small>
         </footer>
-        <Loader
-          type="Puff"
-          color="#00BFFF"
-          height={100}
-          width={100}
-          timeout={3000} //3 secs
-        />
       </div>
     );
   } else {
-    return <h1>Loading...</h1>;
+    search();
+
+    return (
+      <Loader
+        type="Puff"
+        color="#00BFFF"
+        height={100}
+        width={100}
+        timeout={3000} //3 secs
+      />
+    );
   }
 }
