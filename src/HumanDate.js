@@ -1,30 +1,27 @@
-import React, { Component } from "react";
+import React from "react";
 
-export default class HumanDate extends Component {
-  humanizeDate = () => {
-    // Had to multiply the timestamp by 1000 to make it compatible
-    let date = new Date(this.props.timestamp * 1000);
-    let hours = date.getHours();
-    let minutes = date.getMinutes();
-    if (minutes < 10) {
-      minutes = `0${minutes}`;
-    }
-
-    let days = [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday"
-    ];
-    let day = days[date.getDay()];
-
-    return `${day} ${hours}:${minutes}`;
-  };
-
-  render() {
-    return <div>{this.humanizeDate()}</div>;
+export default function HumanDate(props) {
+  console.log(props.date);
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+  // Had to multiply the timestamp by 1000 to make it compatible
+  let day = days[props.date.getDay()];
+  let hours = props.date.getHours();
+  let minutes = props.date.getMinutes();
+  if (minutes < 10) {
+    minutes = `0${minutes}`;
   }
+
+  return (
+    <div>
+      {day} {hours}:{minutes}
+    </div>
+  );
 }
