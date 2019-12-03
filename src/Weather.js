@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import HumanDate from "./HumanDate";
 import "./App.css";
 import Loader from "react-loader-spinner";
 import WeatherImage from "./weatherImage";
@@ -16,7 +17,7 @@ export default class Weather extends Component {
       weather: {
         city: response.data.name,
         temperature: Math.round(response.data.main.temp),
-        date: "Monday 22:00",
+        date: response.data.dt,
         description: response.data.weather[0].description,
         precipitation: "0",
         humidity: response.data.main.humidity,
@@ -50,7 +51,7 @@ export default class Weather extends Component {
               <div className="col-sm">
                 <small className="actual-time">
                   {" "}
-                  {this.state.weather.date}{" "}
+                  <HumanDate timestamp={this.state.weather.date} />{" "}
                 </small>
               </div>
               <div className="col-sm"></div>
