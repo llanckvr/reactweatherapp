@@ -70,8 +70,7 @@ export default function Weather(props) {
           <h2 className="main-temperature">
             {" "}
             <span>
-              {" "}
-              {weather.temperature} <WeatherTemperature />
+              <WeatherTemperature celsius={weather.temperature} />
             </span>
           </h2>
           <p>

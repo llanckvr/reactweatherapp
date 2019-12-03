@@ -24,14 +24,7 @@ h1 {
   position: center;
 }
 
-.celsius {
-  color: #9b9b9b;
-  font-size: 25px;
-  cursor: pointer;
-  transition: all 200ms ease-in-out;
-}
-
-.fahrenheit {
+.units {
   color: #9b9b9b;
   font-size: 25px;
   cursor: pointer;
