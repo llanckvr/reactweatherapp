@@ -3,7 +3,7 @@ import axios from "axios";
 import HumanDate from "./HumanDate";
 import "./App.css";
 import Loader from "react-loader-spinner";
-import WeatherImage from "./weatherImage";
+import WeatherTemperature from "./WeatherTemperature";
 
 export default function Weather(props) {
   const [ready, setReady] = useState(false);
@@ -12,6 +12,7 @@ export default function Weather(props) {
 
   function showResults(response) {
     setWeather({
+      iconUrl: `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`,
       city: response.data.name,
       temperature: Math.round(response.data.main.temp),
       timestamp: new Date(response.data.dt * 1000),
@@ -64,13 +65,14 @@ export default function Weather(props) {
             <div className="col-sm"></div>
           </div>
           <h1> {weather.city} </h1>
-          <WeatherImage />
+          <img src={weather.iconUrl} alt="sun or cloudy" width="130" />
 
           <h2 className="main-temperature">
             {" "}
-            <span> {weather.temperature} </span>{" "}
-            <span className="celsius">ºC </span>{" "}
-            <span className="fahrenheit">|ºF </span>{" "}
+            <span>
+              {" "}
+              {weather.temperature} <WeatherTemperature />
+            </span>
           </h2>
           <p>
             {" "}
