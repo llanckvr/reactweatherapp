@@ -65,7 +65,7 @@ export default function Weather(props) {
             <div className="col-sm"></div>
           </div>
           <h1> {weather.city} </h1>
-          <img src={weather.iconUrl} alt="sun or cloudy" width="130" />
+          <img src={weather.iconUrl} alt="sun or cloudy" width="200" />
 
           <h2 className="main-temperature">
             {" "}
